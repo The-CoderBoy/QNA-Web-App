@@ -1,0 +1,21 @@
+{
+  "name": "mcqhunter",
+  "version": "0.0.1",
+  "description": "the mcq solving platfrom",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mcq"
+  ],
+  "author": "gaurav joshi",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "msnodesqlv8": "^3.1.0",
+    "mssql": "^9.1.1"
+  }
+}
