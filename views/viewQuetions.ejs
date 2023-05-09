@@ -1,0 +1,95 @@
+<%- include("./header.ejs") %>
+<body>
+    <%- include("./navbar.ejs") %>
+    <div >
+        <div class="mb-2">
+            <form action="/subjects" method="post">
+            <label for="subjects">Select subjects</label>
+            <select name="subjects" id="subjects" style="width: 200px;">
+                <option value="inidanHistory">Indian History</option>
+                <option value="indianGeography">Indian Geography</option>
+                <option value="contitution">Contitution</option>
+                <option value="science">Science</option>
+            </select>
+            <button >view</button>
+            </form>
+        </div>
+        <% for(let x=0;x<data.length;x++){ %>
+        <form action="/edit" method="get">
+        <div class="container">
+        <p>Q.No <%= +x+1 %> Id:- <%= data[x].id %></p>
+        <input id="q<%= x %>" type="hidden" name="id" value="<%= data[x].id %>">
+        <label>Quetions</label>
+        <textarea id="q<%= x %>" required lang="hi" class="form-control" name="quetion"rows="2"><%= data[x].quetion %></textarea>
+        <h6 style="margin-top: 10px;">Options</h6>
+        <div>
+            <label>1.</label>
+            <input id="q<%= x %>" required lang="hi" type="text" name="option1" class="form-control quetion-input" value="<%= data[x].option1 %>">
+        </div>
+        <div>
+            <label>2.</label>
+            <input id="q<%= x %>" required lang="hi" type="text" name="option2" class="form-control quetion-input" value="<%= data[x].option2 %>">
+        </div>
+        <div>
+            <label>3.</label>
+            <input id="q<%= x %>" required lang="hi" type="text" name="option3" class="form-control quetion-input" value="<%= data[x].option3 %>">
+        </div>
+        <div>
+            <label>4.</label>
+            <input id="q<%= x %>" required lang="hi" type="text" name="option4" class="form-control quetion-input" value="<%= data[x].option4 %>">
+        </div>
+        <div class="row" style="width:500px">
+            <div class="col-sm">
+                <label>Answer</label>
+                <select id="q<%= x %>" name="answer" class="form-select" style="width: 200px;">
+                    <option value="<%= data[x].answer %>"><%= data[x].answer %></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+            </div>
+            <div class="col-sm">
+                <label>Subjects</label>
+                <select id="q<%= x %>" name="subjects" class="form-select" style="width: 200px;">
+                    <option value="<%= data[x].subjects %>"><%= data[x].subjects %></option>
+                    <option value="inidanHistory">Indian History</option>
+                    <option value="indianGeography">Indian Geography</option>
+                    <option value="contitution">Contitution</option>
+                    <option value="science">Science</option>
+                  </select>
+            </div>
+            <div class="col-sm">
+                <p style="color: white;"><%= data[x].topic %></p>
+            </div>
+        </div>
+        <div>
+            <label>Description</label>
+            <textarea id="q<%= x %>" lang="hi" class="form-control" name="description"rows="3"><%= data[x].description %></textarea>
+        </div>
+        <button class="btn btn-secondary mt-1" type="button" onclick="edit('#q<%= x%>')">Edit</button> 
+        <button class="btn btn-danger mt-1" type="button" >Delete</button>
+    </div>
+    <hr>
+</form>
+    <% } %>
+    </div>
+</body>
+<script>
+    const edit =(id)=>{
+    let obj = {}
+       const data = [...document.querySelectorAll(id)].map((x)=>{
+                    obj[x.name] =x.value;
+                    return {[x.name] : x.value};
+                      })
+
+        axios({
+        method: 'post',
+        url: '/edit',
+        data: obj
+        });
+        console.log(data)
+    }
+  
+</script>
+</html>
